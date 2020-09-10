@@ -1,0 +1,69 @@
+version: "3.8"
+services:
+  shell:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args: 
+        USER_UID: $USER_UID
+        USER_GID: $USER_GID
+        VARIANT: "3.1-bionic"
+        INSTALL_NODE: "true"
+        NODE_VERSION: "lts/*"
+        INSTALL_AZURE_CLI: "false"
+    image: <DOCKER IMAGE NAME>:latest
+    privileged: true
+    ports:
+      - "3000:3000"
+      - "8080:8080"
+    user: vscode
+    tty: true
+    working_dir: /work/src
+    volumes:
+      - $PWD:/work/src:delegated
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $HOME/.aws:/home/vscode/.aws
+    command: /bin/bash
+    env_file: .env
+    environment:
+      - TERM=xterm
+    depends_on:
+      - db
+      - redis
+      - faktory
+    networks:
+      - appnet
+
+  db:
+    ipc: host
+    image: postgres:11.9-alpine
+    volumes:
+      - ./sql:/app/sql
+    ports:
+      - "5432:5432"
+    environment:
+      - TERM=xterm
+      - POSTGRES_PASSWORD=<DB PASSWORD>
+      - POSTGRES_USER=<DB ADMIN USERNAME>
+      - POSTGRES_DB=<DB NAME>
+    networks:
+      - appnet
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - appnet
+
+  faktory:
+    image: contribsys/faktory:latest
+    ports:
+      - "7419:7419"
+      - "7420:7420"
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: bridge
