@@ -36,6 +36,7 @@ There are several ports that get forwarded to your system.
 The following software must be installed to use this project.
 
 1. Docker
+1. Docker Compose
 
 ## Quick start
 
