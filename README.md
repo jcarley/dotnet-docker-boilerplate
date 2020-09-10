@@ -1,6 +1,12 @@
 # dotnet-docker-boilerplate
 Template/boilerplate for a Dockerized .Net project
 
+## Prerequisites to use this project
+
+The following software must be installed to use this project.
+
+1. Docker
+
 ## Quick start
 
 1. Clone this repo
