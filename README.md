@@ -1,5 +1,35 @@
 # dotnet-docker-boilerplate
-Template/boilerplate for a Dockerized .Net project
+Template/boilerplate for a Dockerized .Net project.  Creates a .NET Core 3.1 development environment for you.
+
+## Installed items
+
+1. .Net Core 3.1
+1. postgres 11.9
+1. redis
+1. faktory (https://contribsys.com/faktory/)
+1. aws-cli
+1. helm
+1. node
+1. kubectl
+1. eksctl
+1. docker (for docker in docker)
+1. jq
+1. git
+1. python3
+
+The docker development environment runs as the `vscode` user.  The user id and group id of that user match what your system user id and group id are.  This addresses the issue of files being created properly in the container and you having ownership of them on your system.
+
+There are several ports that get forwarded to your system.
+
+| Port | Description |
+|---   | --- |
+|3000  | Web |
+|8080  | Web |
+|5432  | Postgres DB |
+|6379  | Redis |
+|7419  | Faktory |
+|7420  | Faktory |
+
 
 ## Prerequisites to use this project
 
