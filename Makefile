@@ -14,4 +14,4 @@ shell.rebuild:
 down:
 	@docker-compose down --rmi local -v --remove-orphans
 
-.PHONY: shell shell.rebuild
+.PHONY: shell shell.rebuild down
